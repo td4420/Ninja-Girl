@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerController : MonoBehaviour
 {
-    private float speed, force;
+
+    private float speed, force, delayAttack;
     private bool isGrounded, isDead;
-    Animator animator;
+    public bool isAttacking;
+    private float knifeDamage = 250, kunaiDamage = 75;
+    public float damage;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 2;
-        speed = 1.5f;
+        speed = 3;
         force = 250;
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("isGrounded", true);
@@ -23,9 +25,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(moveCharacter());   
+        moveCharacter();
+        StartCoroutine(Attack());
     }
-    IEnumerator moveCharacter()
+    void moveCharacter()
     {
         if(Input.GetKey(KeyCode.RightArrow))
         {
@@ -46,23 +49,28 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             transform.Translate(-Time.deltaTime * speed, 0, 0);
         }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+        {
+            isGrounded = false;
+            animator.SetBool("isGrounded", isGrounded);
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, force));
+        }
 
         if (!Input.anyKey)
         {
             animator.SetBool("isMoving", false);
-            animator.SetBool("isGrounded", isGrounded);
         }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+    }
+    IEnumerator Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time - delayAttack >= 1)
         {
-            isGrounded = false;
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, force));
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
+            damage = knifeDamage;
+            isAttacking = true;
+            delayAttack = Time.time;
             animator.SetBool("isAttacking", true);
             yield return new WaitForSeconds(0.3f);
+            isAttacking = false;
             animator.SetBool("isAttacking", false);
         }
     }
