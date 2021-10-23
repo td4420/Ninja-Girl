@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
         Died();
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("beAttacked", false);
-        if(Hp>0)speed = 1;
+        if (Hp>0)speed = 1;
     }
     public void Died()
     {

@@ -1,25 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class PlayerController : MonoBehaviour
 {
 
     private float speed, force, delayAttack;
     private bool isGrounded, isDead;
-    public bool isAttacking;
-    private float knifeDamage = 250, kunaiDamage = 75;
+    private int numberOfKunais;
+    public bool isAttacking, isLeft;
+    public float knifeDamage = 250, kunaiDamage = 75;
     public float damage;
     private Animator animator;
+    public Text number;
     // Start is called before the first frame update
     void Start()
     {
         speed = 3;
         force = 250;
+        numberOfKunais = 10;
+        number.text = "X" + numberOfKunais.ToString();
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("isGrounded", true);
         animator.SetBool("isDead", false);
         animator.SetBool("isAttacking", false);
+        animator.SetBool("isThrow", false);
         animator.SetBool("isMoving", false);
+        isLeft = false;
     }
 
     // Update is called once per frame
@@ -32,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.RightArrow))
         {
+            isLeft = false;
             if (!animator.GetBool("isMoving"))
             {
                 animator.SetBool("isMoving", true);
@@ -42,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.LeftArrow))
         {
+            isLeft = true;
             if (!animator.GetBool("isMoving"))
             {
                 animator.SetBool("isMoving", true);
@@ -72,6 +82,16 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             isAttacking = false;
             animator.SetBool("isAttacking", false);
+        }
+        else if(Input.GetKeyDown(KeyCode.Q) && Time.time - delayAttack >= 2 && numberOfKunais > 0)
+        {
+            numberOfKunais--;
+            number.text = "X" + numberOfKunais.ToString();
+            damage = kunaiDamage;
+            delayAttack = Time.time;
+            animator.SetBool("isThrow", true);
+            yield return new WaitForSeconds(0.55f);
+            animator.SetBool("isThrow", false);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
