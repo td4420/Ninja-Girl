@@ -13,8 +13,9 @@ public class PlayerController : MonoBehaviour
     public float knifeDamage = 250, kunaiDamage = 75;
     public float damage;
     private Animator animator;
-    public Text number;
+    public Text number, Heal;
     public GameObject kunai, target;
+    public float Hp = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         force = 250;
         numberOfKunais = 10;
         number.text = "X" + numberOfKunais.ToString();
+        Heal.text = Hp.ToString();
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("isGrounded", true);
         animator.SetBool("isDead", false);
@@ -100,10 +102,28 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 0.65f)
+        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 0.6f)
         {
             isGrounded = true;
             animator.SetBool("isGrounded", isGrounded);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Target")
+        {
+            Debug.Log("Aduuu");
+        }
+    }
+    public void beAttacked(float damage)
+    {
+        Hp -= damage;
+        Heal.text = Hp.ToString();
+        if (Hp <= 0)
+        {
+            gameObject.GetComponent<Collider2D>().isTrigger = true;
+            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            animator.SetBool("isDead", true);
         }
     }
 }
