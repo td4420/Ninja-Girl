@@ -1,7 +1,55 @@
 fileFormatVersion: 2
 guid: 77ba21959aa9bb04190049d0de79c061
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 22143063584322829
+    second: attack-sword_spritesheet_0
+  - first:
+      213: -5092193991281594925
+    second: attack-sword_spritesheet_1
+  - first:
+      213: -4172233594214384897
+    second: attack-sword_spritesheet_2
+  - first:
+      213: 2916179022257217569
+    second: attack-sword_spritesheet_3
+  - first:
+      213: 3389950615784310670
+    second: attack-sword_spritesheet_4
+  - first:
+      213: 3701426384451710241
+    second: attack-sword_spritesheet_5
+  - first:
+      213: 1478675672916674105
+    second: attack-sword_spritesheet_6
+  - first:
+      213: 7192011439864234757
+    second: attack-sword_spritesheet_7
+  - first:
+      213: -7673184855250780807
+    second: attack-sword_spritesheet_8
+  - first:
+      213: 6218049007638359220
+    second: attack-sword_spritesheet_9
+  - first:
+      213: 3649990261040743397
+    second: attack-sword_spritesheet_10
+  - first:
+      213: -1095826104468275042
+    second: attack-sword_spritesheet_11
+  - first:
+      213: -8686866919161730755
+    second: attack-sword_spritesheet_12
+  - first:
+      213: 3389455294304068426
+    second: attack-sword_spritesheet_13
+  - first:
+      213: 3831690035636250953
+    second: attack-sword_spritesheet_14
+  - first:
+      213: 6686103501006505770
+    second: attack-sword_spritesheet_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +89,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,9 +123,369 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 68
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d05be2fbffaae4000800000000000000
+      internalID: 22143063584322829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 0
+        width: 76
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dd28466b84e459b0800000000000000
+      internalID: -5092193991281594925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 159
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffa76e8c6af3916c0800000000000000
+      internalID: -4172233594214384897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 0
+        width: 113
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1206613ce59587820800000000000000
+      internalID: 2916179022257217569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 120
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e87c0f3df168b0f20800000000000000
+      internalID: 3389950615784310670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 75
+        width: 42
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12da0878fab1e5330800000000000000
+      internalID: 3701426384451710241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 90
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 936c53ea0bf458410800000000000000
+      internalID: 1478675672916674105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 0
+        width: 113
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50347a5bc482fc360800000000000000
+      internalID: 7192011439864234757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 82
+        width: 19
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97dbed6470f538590800000000000000
+      internalID: -7673184855250780807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 84
+        width: 14
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bc2148b0a2fa4650800000000000000
+      internalID: 6218049007638359220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 41
+        width: 36
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e308fecdce57a230800000000000000
+      internalID: 3649990261040743397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 65
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e908193c6f7dac0f0800000000000000
+      internalID: -1095826104468275042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 74
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d39e540ef8c027780800000000000000
+      internalID: -8686866919161730755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 60
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a43af0fc1a3c90f20800000000000000
+      internalID: 3389455294304068426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 48
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 949a08749c5ec2530800000000000000
+      internalID: 3831690035636250953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack-sword_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 53
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a270dfca5bfc9cc50800000000000000
+      internalID: 6686103501006505770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

@@ -8,14 +8,13 @@ public class EnemyController : MonoBehaviour
     Animator animator;
     private GameObject player;
     float distance, maxX, minX, speed;
-    bool isMoveLeft;
+    public bool isMoveLeft;
     public float Hp;
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         Hp = 500;
-        isMoveLeft = true;
         speed = 1;
         distance = 1;
         maxX = transform.position.x + distance;

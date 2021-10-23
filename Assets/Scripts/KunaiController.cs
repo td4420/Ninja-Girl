@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class KunaiController : MonoBehaviour
 {
-    public float speed, damage, range;
+    private float speed, damage, range;
     private float maxX, minX;
     private GameObject character;
+    private bool left;
     // Start is called before the first frame update
     void Start()
     {
+        speed = 5;
+        range = 3;
         character = GameObject.FindGameObjectWithTag("Player");
         damage = character.GetComponent<PlayerController>().kunaiDamage;
         maxX = transform.position.x + range;
         minX = transform.position.x - range;
+        left = character.GetComponent<PlayerController>().isLeft;
     }
 
     // Update is called once per frame
@@ -25,27 +29,30 @@ public class KunaiController : MonoBehaviour
     {
         if(collision.collider.tag == "Enemy")
         {
-
             collision.gameObject.GetComponent<EnemyController>().StartCoroutine(collision.gameObject.GetComponent<EnemyController>().beAttacked(damage));
             RemoveKunai();
         }
     }
     void moveKunai()
     {
-        if (character.GetComponent<PlayerController>().isLeft)
+        if (transform.position.x >= maxX - 0.1f || transform.position.x <= minX + 0.1f)
+        {
+            RemoveKunai();
+        }
+        if (left)
         {
             transform.position = new Vector3(Mathf.Clamp(transform.position.x - Time.deltaTime * speed, minX, maxX),
                                              transform.position.y, transform.position.z);
+            
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
         else
         {
             transform.position = new Vector3(Mathf.Clamp(transform.position.x + Time.deltaTime * speed, minX, maxX),
                                              transform.position.y, transform.position.z);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-        if(transform.position.x >= maxX || transform.position.x <= minX)
-        {
-            RemoveKunai();
-        }
+        
     }
     void RemoveKunai()
     {

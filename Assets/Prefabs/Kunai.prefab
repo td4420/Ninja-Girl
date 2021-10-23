@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8105882491236638472}
   m_Layer: 5
   m_Name: Kunai
-  m_TagString: Untagged
+  m_TagString: Kunai
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222b7e4d30597d948a120cc2dc4a1257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  damage: 0
-  range: 3

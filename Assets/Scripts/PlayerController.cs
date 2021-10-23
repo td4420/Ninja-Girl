@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float damage;
     private Animator animator;
     public Text number;
+    public GameObject kunai, target;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.RightArrow))
         {
+            target.transform.position = new Vector3(transform.position.x + 0.53f, transform.position.y, transform.position.z);
             isLeft = false;
             if (!animator.GetBool("isMoving"))
             {
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.LeftArrow))
         {
+            target.transform.position = new Vector3(transform.position.x - 0.53f, transform.position.y, transform.position.z);
             isLeft = true;
             if (!animator.GetBool("isMoving"))
             {
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Q) && Time.time - delayAttack >= 2 && numberOfKunais > 0)
         {
+            Instantiate(kunai,target.transform.position,target.transform.rotation,GameObject.FindGameObjectWithTag("Canvas").transform);
             numberOfKunais--;
             number.text = "X" + numberOfKunais.ToString();
             damage = kunaiDamage;
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 1.35f)
+        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 0.65f)
         {
             isGrounded = true;
             animator.SetBool("isGrounded", isGrounded);
