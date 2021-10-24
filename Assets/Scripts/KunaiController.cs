@@ -33,6 +33,18 @@ public class KunaiController : MonoBehaviour
             RemoveKunai();
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            if(collision.gameObject.GetComponent<EnemyController>().Hp > 0)
+            {
+                collision.gameObject.GetComponent<EnemyController>().StartCoroutine(collision.gameObject.GetComponent<EnemyController>().beAttacked(damage));
+                RemoveKunai();
+            }    
+            
+        }
+    }
     void moveKunai()
     {
         if (transform.position.x >= maxX - 0.1f || transform.position.x <= minX + 0.1f)

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
     Animator animator;
+    public Slider healthBar;
     private GameObject player;
     float distance, maxX, minX, speed;
     public bool isMoveLeft, isAttacking;
@@ -24,6 +26,8 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("beAttacked", false);
         animator.SetBool("seePlayer", false);
         isAttacking = false;
+        healthBar.maxValue = Hp;
+        healthBar.value = Hp;
     }
 
     // Update is called once per frame
@@ -58,21 +62,49 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(beAttacked(player.GetComponent<PlayerController>().damage));
             player.GetComponent<PlayerController>().isAttacking = false;
         }
+        if(collision.tag == "Enemy")
+        {
+            if(collision.gameObject.GetComponent<EnemyController>().Hp <= 0)
+            {
+                gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Enemy")
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Player")
+        if (collision.collider.tag == "Player" && animator.GetBool("seePlayer"))
         {
-            if(Time.time - delay >= 1.0f)
+            if(Time.time - delay >= 2.0f)
             {
                 delay = Time.time;
+                player.GetComponent<PlayerController>().canAttack = false;
                 isAttacking = true;
                 animator.SetBool("inRange", true);
                 speed = 0;
                 player.GetComponent<PlayerController>().beAttacked(damage);
+                StartCoroutine(setPlayerCanAttack());
             }
             
         }
+    }
+    IEnumerator setPlayerCanAttack()
+    {
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<PlayerController>().canAttack = true;
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -88,40 +120,47 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("beAttacked", true);
         speed = 0;
         Hp -= damage;
-        Died();
+        healthBar.value = Hp;
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("beAttacked", false);
-        if (Hp>0)speed = 1;
+        Died();
     }
     public void Died()
     {
-        if(Hp<=0)
+        if (Hp <= 0)
         {
-            animator.SetBool("isDead", true);
             speed = 0;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            animator.SetBool("isDead", true);
             Destroy(gameObject, 2.1f);
         }
+        else speed = 1;
     }
     public void checkPlayer()
     {
-        if ((!isAttacking) && player.transform.position.x > minX && player.transform.position.y - transform.position.y < 1.3f)
+        if(Hp > 0)
         {
-            if ((isMoveLeft && transform.position.x - player.transform.position.x <= 3)
-                || ((!isMoveLeft) && transform.position.x - player.transform.position.x >= -3 && transform.position.x - player.transform.position.x <0))
+            
+            float distanceY = player.transform.position.y - transform.position.y;
+            float distanceX = transform.position.x - player.transform.position.x;
+            if ((!isAttacking) && player.transform.position.x > minX && distanceY < 1.3f && distanceY > -0.3f)
             {
-                speed = 2;
-                animator.SetBool("seePlayer", true);
+                if ((isMoveLeft &&  distanceX<= 3) || ((!isMoveLeft) && distanceX >= -3 && distanceX < 0))
+                {
+                    speed = 2;
+                    animator.SetBool("seePlayer", true);
+                }
+                else
+                {
+                    speed = 1;
+                    animator.SetBool("seePlayer", false);
+                }
             }
             else
             {
                 speed = 1;
                 animator.SetBool("seePlayer", false);
             }
-        }
-        else
-        {
-            speed = 1;
-            animator.SetBool("seePlayer", false);
         }
 
     }

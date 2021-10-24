@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public GameObject character;
+    public int NumberOfEnemies;
+    public Text Enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        NumberOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        Enemies.text = "X" + NumberOfEnemies.ToString();
     }
 }

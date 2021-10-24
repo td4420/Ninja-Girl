@@ -156,7 +156,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!114 &5760262469431727458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f040f526e1ece9a479cd145e82070fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  healthBar: {fileID: 6820741172210603192, guid: 11b090a54faac8f4b9f6e55e895e9517, type: 3}
+  gameController: {fileID: 1806137378526844111, guid: c0fc575c5374ab741b17487f2133c035, type: 3}
   isMoveLeft: 0
-  isRunning: 0
+  isAttacking: 0
   Hp: 0
+  damage: 0
