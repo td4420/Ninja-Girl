@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
     }
     void moveEnemy()
     {
-        if (transform.position.x <= minX + 0.1f  || transform.position.x >= maxX - 0.1f)
+        if ((transform.position.x <= minX + 0.05f && isMoveLeft)|| (transform.position.x >= maxX - 0.05f && !isMoveLeft))
         {
             isMoveLeft = !isMoveLeft;
         }
@@ -103,17 +103,16 @@ public class EnemyController : MonoBehaviour
     }
     IEnumerator setPlayerCanAttack()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         player.GetComponent<PlayerController>().canAttack = true;
+        player.GetComponent<PlayerController>().speed = 3;
+        isAttacking = false;
+        animator.SetBool("inRange", false);
+        speed = 1;
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player")
-        {
-            isAttacking = false;
-            animator.SetBool("inRange", false);
-            speed = 1;
-        }
+        
     }
     public IEnumerator beAttacked(float damage)
     {
@@ -143,9 +142,9 @@ public class EnemyController : MonoBehaviour
             
             float distanceY = player.transform.position.y - transform.position.y;
             float distanceX = transform.position.x - player.transform.position.x;
-            if ((!isAttacking) && player.transform.position.x > minX && distanceY < 1.3f && distanceY > -0.3f)
+            if ((!isAttacking) && (player.transform.position.x > minX && player.transform.position.x < maxX) && distanceY < 1.3f && distanceY > -0.3f)
             {
-                if ((isMoveLeft &&  distanceX<= 3) || ((!isMoveLeft) && distanceX >= -3 && distanceX < 0))
+                if ((isMoveLeft &&  distanceX<= 2*distance) || ((!isMoveLeft) && distanceX >= -2*distance && distanceX < 0))
                 {
                     speed = 2;
                     animator.SetBool("seePlayer", true);

@@ -19,5 +19,23 @@ public class GameController : MonoBehaviour
     {
         NumberOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         Enemies.text = "X" + NumberOfEnemies.ToString();
+        bool reach = character.GetComponent<PlayerController>().reachDestination;
+        bool haveKey = character.GetComponent<PlayerController>().haveKey;
+        if (reach && haveKey && NumberOfEnemies == 0)
+        {
+            clearStage();
+        }
+        if(character.GetComponent<PlayerController>().Hp <= 0)
+        {
+            GameOver();
+        }
+    }
+    void clearStage()
+    {
+        Debug.Log("Winner");
+    }
+    void GameOver()
+    {
+        Debug.Log("You Lose");
     }
 }

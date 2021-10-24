@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed, force, delayAttack;
+    public float speed, force, delayAttack;
     private bool isGrounded, isDead;
     private int numberOfKunais;
-    public bool isAttacking, isLeft, canAttack, haveKey;
+    public bool isAttacking, isLeft, canAttack, haveKey, reachDestination;
     public float knifeDamage = 100, kunaiDamage = 350;
     public float damage;
     private Animator animator;
@@ -121,17 +121,33 @@ public class PlayerController : MonoBehaviour
             haveKey = true;
             Destroy(collision.gameObject, 0.2f);
         }
+        if(collision.tag == "House")
+        {
+            reachDestination = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "House")
+        {
+            reachDestination = false;
+        }
     }
     public void beAttacked(float damage)
     {
+        speed = 0;
         Hp -= damage;
         healthBar.value = Hp;
         if (Hp <= 0)
         {
-            speed = 0;
-            gameObject.GetComponent<Collider2D>().isTrigger = true;
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            animator.SetBool("isDead", true);
+            Dead();
         }
+    }
+    void Dead()
+    {
+        speed = 0;
+        gameObject.GetComponent<Collider2D>().isTrigger = true;
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        animator.SetBool("isDead", true);
     }
 }
