@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public Button playButton, quitButton;
-    public Text playText, quitText;
+    public Button playButton, quitButton, settingButton;
+    public Text playText, quitText, settingText;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour
     }
     void QuitGame()
     {
-        
+        Application.Quit();
     }
     public void OnMouseEnterPlay()
     {

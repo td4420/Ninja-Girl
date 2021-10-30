@@ -120,7 +120,6 @@ public class EnemyController : MonoBehaviour
         speed = 0;
         Hp -= damage;
         healthBar.value = Hp;
-        Debug.Log(healthBar.value);
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("beAttacked", false);
         Died();

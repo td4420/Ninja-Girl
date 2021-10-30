@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Transform CheckGrounded;
+    public LayerMask ground;
     public float speed, force, delayAttack;
     private bool isGrounded, isDead;
     public int numberOfKunais;
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(CheckGrounded.position, 0.1f, ground);
+        animator.SetBool("isGrounded", isGrounded);
         healthBar.value = Hp;
         number.text = "X" + numberOfKunais.ToString();
         moveCharacter();
@@ -71,8 +75,6 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
-            isGrounded = false;
-            animator.SetBool("isGrounded", isGrounded);
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, force));
         }
 
@@ -107,14 +109,6 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isThrow", false);
             }
         }    
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 0.1f)
-        {
-            isGrounded = true;
-            animator.SetBool("isGrounded", isGrounded);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

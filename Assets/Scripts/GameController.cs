@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public GameObject character;
-    public GameObject stage1, stage2, stage3, gameOver;
-    public int numberOfStages;
+    public GameObject winPanel, gameOver, pausePanel;
+    public GameObject UI;
+    public Button pauseButton, resumButton, restartButton, homeButton;
+    private int numberOfStages;
     private GameObject[] Stage;
-    public int NumberOfEnemies;
+    private int NumberOfEnemies;
     private int currentStage;
     public Text Enemies;
     // Start is called before the first frame update
@@ -23,7 +25,13 @@ public class GameController : MonoBehaviour
         {
             Stage[i].SetActive(false);
         }
+        pauseButton.onClick.AddListener(Pause);
+        resumButton.onClick.AddListener(Resum);
+        restartButton.onClick.AddListener(Restart);
+        homeButton.onClick.AddListener(Home);
         gameOver.SetActive(false);
+        winPanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
     void setUpListStage()
     {
@@ -71,14 +79,36 @@ public class GameController : MonoBehaviour
     IEnumerator GameOver()
     {
         yield return new WaitForSeconds(0.5f);
-        for(int i=0;i<numberOfStages;i++)
-        {
-            Stage[i].SetActive(false);
-        }    
-        gameOver.SetActive(true); 
+        Stage[currentStage - 1].SetActive(false);
+        UI.SetActive(false);
+        character.SetActive(false);
+        gameOver.SetActive(true);
     }
     void Win()
     {
-        Debug.Log("WIN");
+        Stage[currentStage - 2].SetActive(false);
+        UI.SetActive(false);
+        character.SetActive(false);
+        winPanel.SetActive(true);
+    }
+    void Pause()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+    void Resum()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+    void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
+    }
+    void Home()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }
