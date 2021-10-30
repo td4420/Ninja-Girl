@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
-    Animator animator;
+    public Animator animator;
     public Slider healthBar;
     private GameObject player;
     float distance, maxX, minX, speed;
@@ -120,6 +120,7 @@ public class EnemyController : MonoBehaviour
         speed = 0;
         Hp -= damage;
         healthBar.value = Hp;
+        Debug.Log(healthBar.value);
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("beAttacked", false);
         Died();

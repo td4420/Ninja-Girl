@@ -11,6 +11,7 @@ TagManager:
   - Canvas
   - House
   - Key
+  - Stage
   layers:
   - Default
   - TransparentFX

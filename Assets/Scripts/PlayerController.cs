@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     public float speed, force, delayAttack;
     private bool isGrounded, isDead;
-    private int numberOfKunais;
+    public int numberOfKunais;
     public bool isAttacking, isLeft, canAttack, haveKey, reachDestination;
-    public float knifeDamage = 100, kunaiDamage = 350;
+    public float knifeDamage = 150, kunaiDamage = 350;
     public float damage;
     private Animator animator;
     public Text number;
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthBar.value = Hp;
+        number.text = "X" + numberOfKunais.ToString();
         moveCharacter();
         StartCoroutine(Attack());
     }
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 0.3f)
+        if (collision.collider.tag == "Ground" && transform.position.y - collision.gameObject.transform.position.y > 0.1f)
         {
             isGrounded = true;
             animator.SetBool("isGrounded", isGrounded);
