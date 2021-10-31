@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject character;
+    private GameObject character;
     public GameObject winPanel, gameOver, pausePanel;
     public GameObject UI;
     public Button pauseButton, resumButton, restartButton, homeButton;
@@ -15,9 +15,12 @@ public class GameController : MonoBehaviour
     private int NumberOfEnemies;
     private int currentStage;
     public Text Enemies;
+    private AudioSource sound;
+    public AudioClip backgroundSound, gameoverSound, winSound;
     // Start is called before the first frame update
     void Start()
     {
+        character = GameObject.FindGameObjectWithTag("Player");
         currentStage = 1;
         setUpListStage();
         Stage[currentStage-1].SetActive(true);
@@ -32,6 +35,11 @@ public class GameController : MonoBehaviour
         gameOver.SetActive(false);
         winPanel.SetActive(false);
         pausePanel.SetActive(false);
+        sound = gameObject.AddComponent<AudioSource>();
+        sound.clip = backgroundSound;
+        sound.loop = true;
+        sound.volume = MenuController.gameVolume;
+        sound.Play();
     }
     void setUpListStage()
     {
@@ -78,14 +86,19 @@ public class GameController : MonoBehaviour
     }
     IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Stage[currentStage - 1].SetActive(false);
         UI.SetActive(false);
         character.SetActive(false);
         gameOver.SetActive(true);
+        character.GetComponent<PlayerController>().Hp = 100;
+        sound.clip = gameoverSound;
+        sound.Play();
     }
     void Win()
     {
+        sound.clip = winSound;
+        sound.Play();
         Stage[currentStage - 2].SetActive(false);
         UI.SetActive(false);
         character.SetActive(false);

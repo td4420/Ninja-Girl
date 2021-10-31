@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour
     public float damage;
     private Animator animator;
     public Text number;
-    public GameObject kunai, target;
+    public GameObject kunai, target, hurtPanel;
     public float Hp = 100;
     public Slider healthBar;
+    private AudioSource effect;
+    public AudioClip jump, attack, throwKunai, death;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,11 @@ public class PlayerController : MonoBehaviour
         healthBar.value = Hp;
         canAttack = true;
         haveKey = false;
+        effect = gameObject.AddComponent<AudioSource>();
+        effect.loop = false;
+        effect.playOnAwake = false;
+        effect.volume = MenuController.SFX;
+        hurtPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,6 +57,7 @@ public class PlayerController : MonoBehaviour
     }
     void moveCharacter()
     {
+        //Move Right
         if(Input.GetKey(KeyCode.RightArrow))
         {
             target.transform.position = new Vector3(transform.position.x + 0.53f, transform.position.y, transform.position.z);
@@ -62,6 +70,7 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Time.deltaTime * speed, 0, 0);
         }
 
+        //Move Left
         if(Input.GetKey(KeyCode.LeftArrow))
         {
             target.transform.position = new Vector3(transform.position.x - 0.53f, transform.position.y, transform.position.z);
@@ -73,11 +82,16 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             transform.Translate(-Time.deltaTime * speed, 0, 0);
         }
+
+        //Jump
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, force));
+            effect.clip = jump;
+            effect.Play();
         }
 
+        //Idle
         if (!Input.anyKey)
         {
             animator.SetBool("isMoving", false);
@@ -87,8 +101,12 @@ public class PlayerController : MonoBehaviour
     {
         if(canAttack)
         {
+
+            //Use knife, delay 1s
             if (Input.GetKeyDown(KeyCode.Space) && Time.time - delayAttack >= 1)
             {
+                effect.clip = attack;
+                effect.Play();
                 damage = knifeDamage;
                 isAttacking = true;
                 delayAttack = Time.time;
@@ -97,8 +115,12 @@ public class PlayerController : MonoBehaviour
                 isAttacking = false;
                 animator.SetBool("isAttacking", false);
             }
+
+            //Throw Kunai, delay 2s
             else if (Input.GetKeyDown(KeyCode.Q) && Time.time - delayAttack >= 2 && numberOfKunais > 0)
             {
+                effect.clip = throwKunai;
+                effect.Play();
                 Instantiate(kunai, target.transform.position, target.transform.rotation, GameObject.FindGameObjectWithTag("Canvas").transform);
                 numberOfKunais--;
                 number.text = "X" + numberOfKunais.ToString();
@@ -134,6 +156,7 @@ public class PlayerController : MonoBehaviour
         speed = 0;
         Hp -= damage;
         healthBar.value = Hp;
+        hurtPanel.SetActive(true);
         if (Hp <= 0)
         {
             Dead();
@@ -145,5 +168,7 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Collider2D>().isTrigger = true;
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         animator.SetBool("isDead", true);
+        effect.clip = death;
+        effect.Play();
     }
 }

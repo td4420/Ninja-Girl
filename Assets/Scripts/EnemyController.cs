@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public bool isMoveLeft, isAttacking;
     public float Hp, damage;
     private float delay;
+    private AudioSource effect;
+    public AudioClip hit;
     void Start()
     {
         damage = 25;
@@ -28,6 +30,11 @@ public class EnemyController : MonoBehaviour
         isAttacking = false;
         healthBar.maxValue = Hp;
         healthBar.value = Hp;
+        effect = gameObject.AddComponent<AudioSource>();
+        effect.loop = false;
+        effect.volume = MenuController.SFX;
+        effect.playOnAwake = false;
+
     }
 
     // Update is called once per frame
@@ -95,6 +102,8 @@ public class EnemyController : MonoBehaviour
                 isAttacking = true;
                 animator.SetBool("inRange", true);
                 speed = 0;
+                effect.clip = hit;
+                effect.Play();
                 player.GetComponent<PlayerController>().beAttacked(damage);
                 StartCoroutine(setPlayerCanAttack());
             }
@@ -103,7 +112,9 @@ public class EnemyController : MonoBehaviour
     }
     IEnumerator setPlayerCanAttack()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<PlayerController>().hurtPanel.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
         player.GetComponent<PlayerController>().canAttack = true;
         player.GetComponent<PlayerController>().speed = 3;
         isAttacking = false;
