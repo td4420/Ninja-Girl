@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public Button playButton, quitButton, settingButton, backButton;
     public Text volumeSFXSetting, volumeSoundSetting;
     private AudioSource sound, effect;
     public AudioClip background, click;
@@ -19,10 +18,6 @@ public class MenuController : MonoBehaviour
     {
         gameVolume = 100;
         SFX = 100;
-        playButton.onClick.AddListener(PlayGame);
-        quitButton.onClick.AddListener(QuitGame);
-        settingButton.onClick.AddListener(Setting);
-        backButton.onClick.AddListener(Back);
         sound = gameObject.AddComponent<AudioSource>();
         effect = gameObject.AddComponent<AudioSource>();
         sound.clip = background;
@@ -43,7 +38,7 @@ public class MenuController : MonoBehaviour
         sound.volume = gameVolume/100;
         effect.volume = SFX/100;
     }
-    void PlayGame()
+    public void PlayGame()
     {
         effect.Play();
         StartCoroutine(LoadGameScene());
@@ -59,12 +54,12 @@ public class MenuController : MonoBehaviour
             yield return null;
         }
     }
-    void QuitGame()
+    public void QuitGame()
     {
         effect.Play();
         Application.Quit();
     }
-    void Setting()
+    public void Setting()
     {
         defaultMenu.SetActive(false);
         volumeSetting.SetActive(true);
@@ -76,6 +71,10 @@ public class MenuController : MonoBehaviour
     public void OnMouseExit(Text txt)
     {
         txt.color = new Color32(0, 97, 226,255);
+    }
+    public void OnMouseClick(Text txt)
+    {
+        txt.color = new Color32(0, 97, 226, 255);
     }
     public void subVolumeSFX(Text txt)
     {

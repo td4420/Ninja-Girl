@@ -64,49 +64,21 @@ public class EnemyController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag == "Target" && player.GetComponent<PlayerController>().isAttacking)
+        if (collision.tag == "Target" && player.GetComponent<PlayerController>().isAttacking)
         {
             StartCoroutine(beAttacked(player.GetComponent<PlayerController>().damage));
             player.GetComponent<PlayerController>().isAttacking = false;
         }
-        if(collision.tag == "Enemy")
-        {
-            if(collision.gameObject.GetComponent<EnemyController>().Hp <= 0)
-            {
-                gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-            }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.tag == "Enemy")
-        {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Enemy")
+        
+        if (collision.collider.tag == "Player")
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            
         }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
         if (collision.collider.tag == "Player" && animator.GetBool("seePlayer"))
         {
-            if(Time.time - delay >= 2.0f)
-            {
-                delay = Time.time;
-                player.GetComponent<PlayerController>().canAttack = false;
-                isAttacking = true;
-                animator.SetBool("inRange", true);
-                speed = 0;
-                effect.clip = hit;
-                effect.Play();
-                player.GetComponent<PlayerController>().beAttacked(damage);
-                StartCoroutine(setPlayerCanAttack());
-            }
             
         }
     }
@@ -120,10 +92,6 @@ public class EnemyController : MonoBehaviour
         isAttacking = false;
         animator.SetBool("inRange", false);
         speed = 1;
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        
     }
     public IEnumerator beAttacked(float damage)
     {
@@ -155,7 +123,7 @@ public class EnemyController : MonoBehaviour
             float distanceX = transform.position.x - player.transform.position.x;
             if ((!isAttacking) && (player.transform.position.x > minX && player.transform.position.x < maxX) && distanceY < 1.3f && distanceY > -0.3f)
             {
-                if ((isMoveLeft &&  distanceX<= 2*distance) || ((!isMoveLeft) && distanceX >= -2*distance && distanceX < 0))
+                if ((isMoveLeft && distanceX > 0 && distanceX<= 2*distance) || ((!isMoveLeft) && distanceX >= -2*distance && distanceX < 0))
                 {
                     speed = 2;
                     animator.SetBool("seePlayer", true);
@@ -173,5 +141,23 @@ public class EnemyController : MonoBehaviour
             }
         }
 
+    }
+    public void AttackPlayer()
+    {
+        if(animator.GetBool("seePlayer"))
+        {
+            if (Time.time - delay >= 2.0f)
+            {
+                delay = Time.time;
+                player.GetComponent<PlayerController>().canAttack = false;
+                isAttacking = true;
+                animator.SetBool("inRange", true);
+                speed = 0;
+                effect.clip = hit;
+                effect.Play();
+                player.GetComponent<PlayerController>().beAttacked(damage);
+                StartCoroutine(setPlayerCanAttack());
+            }
+        }
     }
 }

@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     public GameObject kunai, target, hurtPanel;
     public float Hp = 100;
     public Slider healthBar;
-    private AudioSource effect;
-    public AudioClip jump, attack, throwKunai, death;
+    public AudioSource effect;
+    public AudioClip jump, attack, throwKunai, death, getKey;
     // Start is called before the first frame update
     void Start()
     {
@@ -137,11 +137,17 @@ public class PlayerController : MonoBehaviour
         if(collision.tag == "Key")
         {
             haveKey = true;
+            effect.clip = getKey;
+            effect.Play();
             Destroy(collision.gameObject, 0.2f);
         }
         if(collision.tag == "House")
         {
             reachDestination = true;
+        }
+        if(collision.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<EnemyController>().AttackPlayer();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

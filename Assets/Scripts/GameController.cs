@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     private GameObject character;
-    public GameObject winPanel, gameOver, pausePanel;
+    public GameObject winPanel, gameOver, pausePanel, settingPanel;
     public GameObject UI;
-    public Button pauseButton, resumButton, restartButton, homeButton;
     private int numberOfStages;
     private GameObject[] Stage;
     private int NumberOfEnemies;
     private int currentStage;
-    public Text Enemies;
+    public Text Enemies, back;
     private AudioSource sound;
     public AudioClip backgroundSound, gameoverSound, winSound;
+    public Slider soundSlider, sfxSlider;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +28,6 @@ public class GameController : MonoBehaviour
         {
             Stage[i].SetActive(false);
         }
-        pauseButton.onClick.AddListener(Pause);
-        resumButton.onClick.AddListener(Resum);
-        restartButton.onClick.AddListener(Restart);
-        homeButton.onClick.AddListener(Home);
         gameOver.SetActive(false);
         winPanel.SetActive(false);
         pausePanel.SetActive(false);
@@ -69,6 +65,15 @@ public class GameController : MonoBehaviour
         {
             StartCoroutine(GameOver());
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
+        if(settingPanel.activeSelf)
+        {
+            sound.volume = soundSlider.value;
+            character.GetComponent<PlayerController>().effect.volume = sfxSlider.value;
+        }
     }
     void clearStage()
     {
@@ -104,24 +109,33 @@ public class GameController : MonoBehaviour
         character.SetActive(false);
         winPanel.SetActive(true);
     }
-    void Pause()
+    public void Pause()
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
+        settingPanel.SetActive(false);
     }
-    void Resum()
+    public void Resum()
     {
         pausePanel.SetActive(false);
         Time.timeScale = 1;
     }
-    void Restart()
+    public void Restart()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
-    void Home()
+    public void Home()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
+    }
+    public void Setting()
+    {
+        settingPanel.SetActive(true);
+    }
+    public void Back()
+    {
+        settingPanel.SetActive(false);
     }
 }
